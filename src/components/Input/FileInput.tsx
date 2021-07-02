@@ -29,6 +29,7 @@ import {
   UseFormTrigger,
 } from 'react-hook-form';
 import { FiAlertCircle, FiPlus } from 'react-icons/fi';
+import { useScreen } from '../../hooks/useScreen';
 import { api } from '../../services/api';
 
 export interface FileInputProps {
@@ -62,6 +63,8 @@ const FileInputBase: ForwardRefRenderFunction<
   ref
 ) => {
   const toast = useToast();
+  const { isWideScreen } = useScreen();
+
   const [progress, setProgress] = useState(0);
   const [isSending, setIsSending] = useState(false);
   const [cancelToken, setCancelToken] = useState<CancelTokenSource>(
@@ -137,8 +140,8 @@ const FileInputBase: ForwardRefRenderFunction<
     <FormControl isInvalid={!!error}>
       <FormLabel
         mx="auto"
-        w={40}
-        h={40}
+        w={isWideScreen ? 40 : 20}
+        h={isWideScreen ? 40 : 20}
         htmlFor={name}
         cursor={isSending ? 'progress' : 'pointer'}
         opacity={isSending ? 0.5 : 1}
@@ -174,7 +177,12 @@ const FileInputBase: ForwardRefRenderFunction<
                 >
                   <CircularProgressLabel>{progress}%</CircularProgressLabel>
                 </CircularProgress>
-                <Text as="span" pt={2} textAlign="center">
+                <Text
+                  as="span"
+                  pt={2}
+                  textAlign="center"
+                  fontSize={['7', '7', '10', '20', '20']}
+                >
                   Enviando...
                 </Text>
               </>
@@ -200,10 +208,16 @@ const FileInputBase: ForwardRefRenderFunction<
                   justifyContent="center"
                   flexDir="column"
                 >
-                  <Icon as={FiPlus} w={14} h={14} />
-                  <Text as="span" pt={2} textAlign="center">
-                    Adicione sua imagem
-                  </Text>
+                  <Icon
+                    as={FiPlus}
+                    w={isWideScreen ? 14 : 7}
+                    h={isWideScreen ? 14 : 7}
+                  />
+                  {isWideScreen && (
+                    <Text as="span" pt={2} textAlign="center">
+                      Adicione sua imagem
+                    </Text>
+                  )}
                 </Flex>
               </Box>
             )}

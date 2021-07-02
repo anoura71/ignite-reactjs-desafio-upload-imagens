@@ -1,4 +1,11 @@
-import { Box, Flex, Button, useDisclosure, Image } from '@chakra-ui/react';
+import {
+  Box,
+  Flex,
+  Button,
+  Text,
+  useDisclosure,
+  Image,
+} from '@chakra-ui/react';
 
 import { ModalAddImage } from './Modal/AddImage';
 
@@ -7,7 +14,7 @@ export function Header(): JSX.Element {
 
   return (
     <>
-      <Box bgColor="pGray.800">
+      <Box bgColor="pGray.800" justifyContent="space-between">
         <Flex
           justifyContent="space-between"
           alignItems="center"
@@ -16,8 +23,13 @@ export function Header(): JSX.Element {
           px={20}
           py={6}
         >
-          <Image src="logo.svg" h={10} />
-          <Button onClick={() => onOpen()}>Adicionar imagem</Button>
+          <Image src="logo.svg" h={[7, 10]} marginRight="3" />
+
+          <Button width="auto" onClick={() => onOpen()}>
+            <Text fontSize={['xs', 'lg']} isTruncated>
+              Adicionar imagem
+            </Text>
+          </Button>
         </Flex>
       </Box>
 
